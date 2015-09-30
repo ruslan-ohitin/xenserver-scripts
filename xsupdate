@@ -1,0 +1,4 @@
+#!/bin/bash
+
+UUID=`xe patch-upload file-name=$1`
+xe patch-pool-apply uuid=$UUID

@@ -10,6 +10,7 @@ tar czpvf ${FNAME}.conf.tar.gz \
         /root/vm-backup \
         /root/host-backup \
         /root/sms_sms.ru \
+		/etc/sysconfig/modules/* \
         /etc/mdadm.conf \
         /etc/ups/* \
         /etc/ssmtp/* \

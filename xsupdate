@@ -5,7 +5,7 @@ HOST_UUID=`xe host-list params=uuid | awk 'NF { print $5 }'`
 UUID=`xe patch-upload file-name=$1`
 xe patch-pool-apply uuid=$UUID
 
-RESULT=`xe patch-list params='after-apply-guidance' uuid=$UUID | awk 'NF { print $4}'`
+RESULT=`xe patch-list params='after-apply-guidance' uuid=$UUID | awk 'NF { print $4 }'`
 
 case "$RESULT" in
 
@@ -14,7 +14,7 @@ case "$RESULT" in
   xe-toolstack-restart
   ;;
 
-  "restartHost" )
+"restartHost" )
   echo "Restarting host."
   xe host-disable uuid=$HOST_UUID
   xe host-reboot  uuid=$HOST_UUID

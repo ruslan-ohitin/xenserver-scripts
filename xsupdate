@@ -9,7 +9,7 @@ then
   upd_file=${upd_name}.xsupdate
   
   unzip -d /root $param_file $upd_file
-  upd_dir=/root
+  upd_dir=/root/
   clean=1
 else
   if [[ $param_file == *.xsupdate ]]
@@ -26,11 +26,11 @@ fi
 
 HOST_UUID=`xe host-list params=uuid | awk 'NF { print $5 }'`
 
-UUID=`xe patch-upload file-name=${upd_dir}/${upd_file}`
+UUID=`xe patch-upload file-name=${upd_dir}${upd_file}`
 
 if [ $clean == 1 ]
 then
-  rm -f ${upd_dir}/${upd_file}
+  rm -f ${upd_dir}${upd_file}
 fi
 
 xe patch-pool-apply uuid=$UUID

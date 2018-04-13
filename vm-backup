@@ -3,7 +3,7 @@
 VM=$1
 
 xe vm-suspend vm=$VM
-xe vm-export vm=$VM compress=true preserve-power-state=true filename=${VM}_`date +%Y%m%d`.xva
+RES=$(xe vm-export vm=$VM compress=true preserve-power-state=true filename=${VM}_`date +%Y%m%d`.xva | tr '\n' ' ')
 xe vm-resume vm=$VM
 
-/root/sms_sms.ru ${PHONE} "`hostname`: $VM backup complete."
+/root/sms_sms.ru ${PHONE} "`hostname`: $VM backup: $RES"

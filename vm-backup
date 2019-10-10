@@ -1,12 +1,48 @@
 #!/bin/bash
 
 source /root/config
+COMPRESS_METHOD=zstd
 
 VM=$1
-VM_STATE=$(xe vm-list name-label="$VM" params=power-state --minimal)
 
-xe vm-suspend vm=$VM
-RES=$(xe vm-export vm=$VM compress=true preserve-power-state=true filename=${VM}_`date +%Y%m%d`.xva | tr '\n' ' ')
-xe vm-resume vm=$VM
+while [ -n "$VM" ]; 
+do
+    echo $VM
 
-/root/sms_sms.ru ${PHONE} "`hostname`: $VM backup: $RES"
+    # Check that given string is VM name
+    VM_NAME=$(xe vm-list name-label="$VM" params=name-label --minimal)
+    if [ -n "$VM_NAME"]
+    then
+
+        FILENAME=${VM}_`date +%Y%m%d`.xva 
+        if [ -e $FILENAME ]
+        then
+            echo "File $FILENAME alredy exists. Rename or delete it first."
+
+        else
+
+	    # Get power state if VM
+	    VM_STATE=$(xe vm-list name-label="$VM" params=power-state --minimal)
+
+	    if [ $VM_STATE = "running" ]
+	    then
+	        xe vm-suspend vm=$VM
+	    fi
+
+	    RES=$(xe vm-export vm=$VM compress=$COMPRESS_METHOD preserve-power-state=true filename=$FILENAME | tr '\n' ' ')
+
+	    if [ $VM_STATE = "running" ]
+	    then
+	        xe vm-resume vm=$VM
+	    fi
+
+	    /root/sms_sms.ru ${PHONE} "`hostname`: $VM backup: $RES"
+	fi
+
+    fi
+
+    shift
+    VM=$1
+
+done
+

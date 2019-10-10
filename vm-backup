@@ -11,7 +11,7 @@ do
 
     # Check that given string is VM name
     VM_NAME=$(xe vm-list name-label="$VM" params=name-label --minimal)
-    if [ -n "$VM_NAME"]
+    if [ -n "$VM_NAME" ]
     then
 
         FILENAME=${VM}_`date +%Y%m%d`.xva 

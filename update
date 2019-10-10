@@ -1,0 +1,4 @@
+#!/bin/bash
+URL=https://github.com/ruslan-ohitin/xenserver-scripts/archive/master.zip
+
+wget -O new_version.zip $URL 

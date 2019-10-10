@@ -12,12 +12,16 @@ tar czpvf ${FNAME}.conf.tar.gz \
         /root/vm-backup \
         /root/host-backup \
         /root/sms_sms.ru \
+	/root/update \
+	/root/config \
 	/etc/sysconfig/modules/* \
+	/etc/sysconfig/iptables \
         /etc/mdadm.conf \
         /etc/ups/* \
         /etc/ssmtp/* \
         /etc/zabbix/* \
-        /etc/rc.d/rc.local
+        /etc/rc.d/rc.local \
+	/etc/cron.*/*
 
 xe host-restore file-name=${FNAME}.host
 

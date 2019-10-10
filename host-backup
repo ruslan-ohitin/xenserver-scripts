@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /root/config
+
 FNAME=`hostname`_`date +%Y%m%d`
 
 xe pool-dump-database file-name=${FNAME}.pool

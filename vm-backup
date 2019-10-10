@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /root/config
+
 VM=$1
 VM_STATE=$(xe vm-list name-label="$VM" params=power-state --minimal)
 

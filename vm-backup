@@ -1,6 +1,7 @@
 #!/bin/bash
 
 VM=$1
+VM_STATE=$(xe vm-list name-label="$VM" params=power-state --minimal)
 
 xe vm-suspend vm=$VM
 RES=$(xe vm-export vm=$VM compress=true preserve-power-state=true filename=${VM}_`date +%Y%m%d`.xva | tr '\n' ' ')

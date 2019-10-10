@@ -7,5 +7,5 @@ Bash scripts for XenServer
 
 
 Download to xen host:
-wget -O - https://raw.githubusercontent.com/ruslan-ohitin/xenserver-scripts/master/update | bash
 
+wget -O - https://raw.githubusercontent.com/ruslan-ohitin/xenserver-scripts/master/update | bash

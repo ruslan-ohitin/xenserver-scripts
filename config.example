@@ -1,3 +1,10 @@
 # copy this file to "config" and change values
 
+# System administrator's phone
 PHONE=79000000000
+
+# https://sms.ru API token
+SMSRU_API_ID=00000000-0000-0000-0000-000000000000
+
+# Sender's phone
+PHONE_FROM=70000000000

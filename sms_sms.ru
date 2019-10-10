@@ -2,7 +2,9 @@
 
 # Send sms by sms.ru
 
-API_ID="${APP_ID}"
+source /root/config
+
+API_ID="${SMSRU_API_ID}"
 FROM="${PHONE_FROM}"
 
 TO=$1

@@ -1,6 +1,18 @@
 #!/bin/bash
 
+# Writing log message with vm name and timestamp
+log_message() {
+    if [ -n $1 ]
+    then
+        echo "$(date +%F\ %X) $VM: $1"
+    fi
+}
+
+# Main program
+
+# Import config
 source /root/config
+
 COMPRESS_METHOD=zstd
 
 VM=$1
@@ -13,32 +25,37 @@ do
     VM_NAME=$(xe vm-list name-label="$VM" params=name-label --minimal)
     if [ -n "$VM_NAME" ]
     then
-
         FILENAME=${VM}_`date +%Y%m%d`.xva 
         if [ -e $FILENAME ]
         then
-            echo "File $FILENAME alredy exists. Rename or delete it first."
-
+            log_message("File $FILENAME alredy exists. Rename or delete it first.")
         else
-
 	    # Get power state if VM
 	    VM_STATE=$(xe vm-list name-label="$VM" params=power-state --minimal)
 
 	    if [ $VM_STATE = "running" ]
 	    then
+                log_message("start suspend")
 	        xe vm-suspend vm=$VM
+                log_message("end suspend")
 	    fi
 
+            log_message("start export")
 	    RES=$(xe vm-export vm=$VM compress=$COMPRESS_METHOD preserve-power-state=true filename=$FILENAME | tr '\n' ' ')
+            log_message("end export: $RES")
 
 	    if [ $VM_STATE = "running" ]
 	    then
+                log_message("start resume")
 	        xe vm-resume vm=$VM
+                log_message("end resume")
 	    fi
 
+            log_message("sending text message to admin")
 	    /root/sms_sms.ru ${PHONE} "`hostname`: $VM backup: $RES"
 	fi
-
+    else
+        log_message("vm not found!")
     fi
 
     shift

@@ -4,7 +4,7 @@
 log_message() {
     if [ -n "$1" ]
     then
-        echo "$(date +%F\ %X) $VM: $1"
+        echo "$(date +%F\ %H:%M:%S) VM $VM: $1"
     fi
 }
 

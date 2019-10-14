@@ -64,7 +64,7 @@ do
             do
                 # Cypher files
                 echo "$FL --\> /root/dst/$HV/$(basename $FL).gpg"
-                gpg $SRES --output "/root/dst/$HV/$(basename $FL).gpg" --encrypt "$FL" 
+                echo gpg $SRES --output "/root/dst/$HV/$(basename $FL).gpg" --encrypt "$FL" 
 
             done
         else

@@ -10,8 +10,11 @@ SMSRU_API_ID=00000000-0000-0000-0000-000000000000
 PHONE_FROM=70000000000
 
 # Config Archives of backups
+# See README.md
+
 # String with space separated names of hypervisor hosts
 HYPERVISORS=""
 
 # Array of gpg pub keys ids or emails to cypher backup
-RECIPIENTS=("GPG PUB KEY1" "GPG PUB KEY2")
+# Key names (with spaces) breakes script.
+RECIPIENTS=("user1@firm.com" "user2@firm.org")

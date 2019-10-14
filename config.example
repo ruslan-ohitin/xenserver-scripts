@@ -13,5 +13,5 @@ PHONE_FROM=70000000000
 # String with space separated names of hypervisor hosts
 HYPERVISORS=""
 
-# Array of gpg pub keys ids or names to cypher backup
+# Array of gpg pub keys ids or emails to cypher backup
 RECIPIENTS=("GPG PUB KEY1" "GPG PUB KEY2")

@@ -11,7 +11,7 @@ then
         pubkey="${RECIPIENTS[$ix]}"
         if gpg --list-keys "$pubkey" > /dev/null
         then
-            SRES+=" --recipient \"$pubkey\""
+            SRES+=" -r $pubkey"
         fi
     done
     if [ -z "$SRES" ]
@@ -64,7 +64,7 @@ do
             do
                 # Cypher files
                 echo $FL
-                gpg $SRES --output "/root/dst/$HV/$(basename $FL).gpg" --encrypt "$FL" 
+                gpg $SRES -v -o "/root/dst/$HV/$(basename $FL).gpg" -e "$FL" 
 
             done
         else

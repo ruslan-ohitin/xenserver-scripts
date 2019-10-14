@@ -63,8 +63,8 @@ do
             for FL in /root/src/$HV/*
             do
                 # Cypher files
-                echo "$FL --\> /root/dst/$HV/$(basename $FL).gpg"
-                echo gpg $SRES --output "/root/dst/$HV/$(basename $FL).gpg" --encrypt "$FL" 
+                echo $FL
+                gpg $SRES --output "/root/dst/$HV/$(basename $FL).gpg" --encrypt "$FL" 
 
             done
         else

@@ -1,0 +1,50 @@
+#!/bin/bash
+
+source /root/config
+
+# Try to mount dst disk
+if mount LABEL="ARC1" /root/dst
+then
+    echo "Mounted ARC1 destination disk"
+else
+    if mount LABEL="ARC2" /root/dst
+    then
+        echo "Mounted ARC2 destination disk"
+    else
+        echo "Destination disk ARC1 or ARC2 not found!"
+        exit
+    fi
+fi
+
+for HV in $HYPERVISORS
+do
+    if mount LABEL="hdd-$HV" /root/src
+    then
+        echo "Mount partition with label hdd-$HV."
+        if [ -d /root/src/$HV ]
+        then
+            if [ -d /root/dst/$HV ]
+            then
+                # If directory exists, then delete all files inside it.
+                rm /root/dst/$HV/*
+            else
+                mkdir /root/dst/$HV
+            fi
+
+            for FL in /root/src/$HV/*
+            do
+                # Cypher files
+                echo "$FL --\> /root/dst/$HV/$(basename $FL).gpg"
+
+            done
+        else
+            echo "Source directory /root/src/$HV not found!"
+        fi
+
+        umount /root/src
+    else
+        echo "Partition with label hdd-$HV not found."
+    fi
+
+done
+

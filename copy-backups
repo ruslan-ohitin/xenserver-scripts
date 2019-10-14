@@ -64,7 +64,7 @@ do
             do
                 # Cypher files
                 echo $FL
-                gpg $SRES -v -o "/root/dst/$HV/$(basename $FL).gpg" -e "$FL" 
+                gpg --compress-algo none $SRES -v -o "/root/dst/$HV/$(basename $FL).gpg" -e "$FL" 
 
             done
         else

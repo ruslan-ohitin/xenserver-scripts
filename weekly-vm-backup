@@ -4,3 +4,17 @@
 
 source /root/config
 
+if [ ! -z "$VMS_TO_BACKUP" ]
+then
+    if mount LABEL="hdd-$(hostname)" /root/usb-hdd
+    then
+        cd /root/usb-hdd
+        /root/vm-backup $VMS_TO_BACKUP
+        cd /root
+        umount /root/usb-hdd
+    else
+        echo "Unabel to mount partition with label hdd-$(hostname)"
+    fi    
+else
+    echo "Set variable VNS_TO_BACKUP to list of VMs"    
+fi    

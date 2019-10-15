@@ -5,6 +5,6 @@ wget -O new_version.zip $URL
 
 unzip -j -o new_version.zip  
 
-chmod +x host-backup sms_sms.ru update vm-backup xsupdate copy-backups
+chmod +x host-backup sms_sms.ru update vm-backup xsupdate copy-backups weekly-backup
 
 rm new_version.zip

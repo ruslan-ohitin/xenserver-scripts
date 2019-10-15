@@ -12,6 +12,9 @@ PHONE_FROM=70000000000
 # Config Archives of backups
 # See README.md
 
+# String with space separated names of VMs to backup weekly
+VMS_TO_BACKUP=""
+
 # String with space separated names of hypervisor hosts
 HYPERVISORS=""
 

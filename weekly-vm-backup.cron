@@ -1,0 +1,8 @@
+# Put this file to /etc/cron.d
+# Start weekly VM backup
+
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+
+@weekly root /root/weekly-vm-backup

@@ -9,21 +9,20 @@ xe pool-dump-database file-name=${FNAME}.pool
 xe host-backup name-label=`hostname` file-name=${FNAME}.host
 
 tar czpvf ${FNAME}.conf.tar.gz \
-        /root/vm-backup \
-        /root/host-backup \
-        /root/sms_sms.ru \
+    /root/vm-backup \
+    /root/host-backup \
+    /root/sms_sms.ru \
 	/root/update \
 	/root/config \
 	/etc/sysconfig/modules/* \
 	/etc/sysconfig/iptables \
-        /etc/mdadm.conf \
-        /etc/ups/* \
-        /etc/ssmtp/* \
-        /etc/zabbix/* \
-        /etc/rc.d/rc.local \
+    /etc/mdadm.conf \
+    /etc/ups/* \
+    /etc/ssmtp/* \
+    /etc/zabbix/* \
+    /etc/rc.d/rc.local \
 	/etc/cron.*/*
 
 xe host-restore file-name=${FNAME}.host
 
 /root/sms_sms.ru ${PHONE} "Host ${FNAME} backup complete."
-

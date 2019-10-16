@@ -12,6 +12,9 @@ PHONE_FROM=70000000000
 # Config Archives of backups
 # See README.md
 
+# Choose between zstd and true
+COMPRESS_METHOD=zstd
+
 # String with space separated names of VMs to backup weekly
 VMS_TO_BACKUP=""
 

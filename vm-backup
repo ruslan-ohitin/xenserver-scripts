@@ -13,7 +13,11 @@ log_message() {
 # Import config
 source /root/config
 
-COMPRESS_METHOD=zstd
+if [ -z "$COMPRESS_METHOD" ]
+then
+   COMPRESS_METHOD=zstd
+fi
+
 
 VM=$1
 

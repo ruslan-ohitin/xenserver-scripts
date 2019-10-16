@@ -25,7 +25,7 @@ else
 fi
 
 # Get list of hypervisors
-if [ -z "HYPERVISORS" ]
+if [ -z "$HYPERVISORS" ]
 then
     echo "Specify list of \$HYPERVISORS in /root/config"
     exit

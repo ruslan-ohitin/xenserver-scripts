@@ -9,6 +9,6 @@ FROM="${PHONE_FROM}"
 
 TO=$1
 SUBJECT="$2"
-BODY="$3"
+#BODY="$3"
 
 curl -d "text=$SUBJECT" http://sms.ru/sms/send\?api_id=${API_ID}\&from=${FROM}\&to=${TO}

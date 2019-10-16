@@ -25,7 +25,7 @@ do
     VM_NAME=$(xe vm-list name-label="$VM" params=name-label --minimal)
     if [ -n "$VM_NAME" ]
     then
-        FILENAME=${VM}_`date +%Y%m%d`.xva 
+        FILENAME=${VM}_$(date +%Y%m%d).xva 
         if [ -e $FILENAME ]
         then
             log_message "File $FILENAME alredy exists. Rename or delete it first."
@@ -52,7 +52,7 @@ do
 	    fi
 
             log_message "sending text message to admin"
-	    /root/sms_sms.ru ${PHONE} "`hostname`: $VM backup: $RES"
+	    /root/sms_sms.ru ${PHONE} "$(hostname): $VM backup: $RES"
 	fi
     else
         log_message "vm not found!"

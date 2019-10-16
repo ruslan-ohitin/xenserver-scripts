@@ -2,11 +2,11 @@
 
 source /root/config
 
-FNAME=`hostname`_`date +%Y%m%d`
+FNAME=$(hostname)_$(date +%Y%m%d)
 
 xe pool-dump-database file-name=${FNAME}.pool
 
-xe host-backup name-label=`hostname` file-name=${FNAME}.host
+xe host-backup name-label=$(hostname) file-name=${FNAME}.host
 
 tar czpvf ${FNAME}.conf.tar.gz \
     /root/vm-backup \

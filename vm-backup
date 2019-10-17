@@ -21,45 +21,47 @@ fi
 
 VM=$1
 
-while [ -n "$VM" ]; 
+while [ -n "$VM" ] 
 do
     echo $VM
 
     # Check that given string is VM name
     VM_NAME=$(xe vm-list name-label="$VM" params=name-label --minimal)
-    if [ -n "$VM_NAME" ]
+    if [ -z "$VM_NAME" ]
     then
+        log_message "vm not found!"
+    else
+
+        # Found VM, check for export file existance
         FILENAME=${VM}_$(date +%Y%m%d).xva 
         if [ -e $FILENAME ]
         then
             log_message "File $FILENAME alredy exists. Rename or delete it first."
         else
-	    # Get power state if VM
-	    VM_STATE=$(xe vm-list name-label="$VM" params=power-state --minimal)
+            # No such file, get power state if VM
+            VM_STATE=$(xe vm-list name-label="$VM" params=power-state --minimal)
 
-	    if [ $VM_STATE = "running" ]
-	    then
+            if [ $VM_STATE = "running" ]
+            then
                 log_message "start suspend"
-	        xe vm-suspend vm=$VM
+                xe vm-suspend vm=$VM
                 log_message "end suspend"
-	    fi
+            fi
 
-            log_message "start export"
-	    RES=$(xe vm-export vm=$VM compress=$COMPRESS_METHOD preserve-power-state=true filename=$FILENAME | tr '\n' ' ')
-            log_message "end export: $RES"
+                log_message "start export"
+            RES=$(xe vm-export vm=$VM compress=$COMPRESS_METHOD preserve-power-state=true filename=$FILENAME | tr '\n' ' ')
+                log_message "end export: $RES"
 
-	    if [ $VM_STATE = "running" ]
-	    then
+            if [ $VM_STATE = "running" ]
+            then
                 log_message "start resume"
-	        xe vm-resume vm=$VM
+                xe vm-resume vm=$VM
                 log_message "end resume"
-	    fi
+            fi
 
             log_message "sending text message to admin"
-	    /root/sms_sms.ru ${PHONE} "$(hostname): $VM backup: $RES"
-	fi
-    else
-        log_message "vm not found!"
+            /root/sms_sms.ru ${PHONE} "$(hostname): $VM backup: $RES"
+        fi
     fi
 
     shift

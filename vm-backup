@@ -18,7 +18,6 @@ then
    COMPRESS_METHOD=zstd
 fi
 
-
 VM=$1
 
 while [ -n "$VM" ] 
@@ -48,9 +47,9 @@ do
                 log_message "end suspend"
             fi
 
-                log_message "start export"
+            log_message "start export"
             RES=$(xe vm-export vm=$VM compress=$COMPRESS_METHOD preserve-power-state=true filename=$FILENAME | tr '\n' ' ')
-                log_message "end export: $RES"
+            log_message "end export: $RES"
 
             if [ $VM_STATE = "running" ]
             then
@@ -68,4 +67,3 @@ do
     VM=$1
 
 done
-

@@ -13,6 +13,12 @@ log_message() {
 # Import config
 source /root/config
 
+if [ "$1" == "--no-sms" ]
+then
+    NOSMS=1
+    shift
+fi
+
 if [ -z "$COMPRESS_METHOD" ]
 then
    COMPRESS_METHOD=zstd
@@ -63,8 +69,16 @@ do
                     log_message "end resume"
                 fi
 
-                log_message "sending text message to admin"
-                /root/sms_sms.ru ${PHONE} "$(hostname): $VM backup: $RES"
+                MSG="$(hostname): $VM backup: $RES" 
+
+                # Check if --no-sms option was set
+                if [ -z "$NOSMS" ]
+                then
+                    log_message "sending text message to admin"
+                    /root/sms_sms.ru ${PHONE} 
+                else
+                    log_message "$MSG"
+                fi
             fi
         fi
 

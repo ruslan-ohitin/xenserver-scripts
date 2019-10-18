@@ -2,6 +2,11 @@
 
 source /root/config
 
+if [ "$1" == "--no-sms" ]
+then
+    NOSMS=1
+fi
+
 FNAME=$(hostname)_$(date +%Y%m%d)
 
 xe pool-dump-database file-name=${FNAME}.pool
@@ -25,4 +30,13 @@ tar czpvf ${FNAME}.conf.tar.gz \
 
 xe host-restore name-label=$(hostname) file-name=${FNAME}.host
 
-/root/sms_sms.ru ${PHONE} "Host ${FNAME} backup complete."
+MSG="Host ${FNAME} backup complete."
+
+if [ -z "$NOSMS" ]
+then
+    # There was no --no-sms option, let's send sms
+    /root/sms_sms.ru ${PHONE} "$MSG"
+else
+    echo $MSG
+fi
+

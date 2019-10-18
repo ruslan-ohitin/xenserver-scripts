@@ -15,8 +15,8 @@ then
         cd /root/usb-hdd/$(hostname)
         rm -f *
         
-        /root/host-backup
-        /root/vm-backup $VMS_TO_BACKUP
+        /root/host-backup --no-sms
+        /root/vm-backup --no-sms $VMS_TO_BACKUP
         cd /root
 
         umount /root/usb-hdd

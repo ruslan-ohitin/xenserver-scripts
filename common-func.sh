@@ -61,3 +61,13 @@ log_message() {
     fi
 }
 
+# Get human-readable size of given file
+file_size_human() {
+    if (( $# == 1 ))
+    then
+        if [ -e "$1" ]
+        then
+            stat --format="%s" "$1" | numfmt --to=iec
+        fi
+    fi
+}

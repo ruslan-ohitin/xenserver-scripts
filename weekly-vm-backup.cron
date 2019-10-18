@@ -8,4 +8,4 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin
 MAILFROM=robot@firm.com
 MAILTO=admin@firm.com
 
-@weekly root /root/weekly-vm-backup
+@weekly root /root/weekly-vm-backup | tee /var/log/weekly-vm-backup.log

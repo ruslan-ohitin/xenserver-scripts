@@ -122,7 +122,7 @@ do
                 if [ -z "$NOSMS" ]
                 then
                     log_message "sending text message to admin"
-                    /root/sms_sms.ru ${PHONE} 
+                    /root/sms_sms.ru ${PHONE} "$MSG"
                 else
                     log_message "$MSG"
                 fi

@@ -19,7 +19,7 @@ BALANCE=${RES[2]}
 
 if [ "$RETCODE" == "100" ]
 then
-    echo "Message was sent with id:$MSGID, $BALANCE"
+    echo "Message \"$SUBJECT\" was sent with id:$MSGID, $BALANCE"
 else
     echo "Error sending message, code:$RETCODE"
 fi

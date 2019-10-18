@@ -23,7 +23,7 @@ sec_to_period() {
         RES+="$DAYS days "
     fi
 
-    echo "$RES(date -ud@$SEC +%H:%M:%S)"
+    echo "${RES}$(date -ud@$SEC +%H:%M:%S)"
 }
 
 # log_message "MESSAGE" [seconds at precess start]

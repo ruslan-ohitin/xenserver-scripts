@@ -23,6 +23,6 @@ tar czpvf ${FNAME}.conf.tar.gz \
     /etc/rc.d/rc.local \
 	/etc/cron.*/*
 
-xe host-restore file-name=${FNAME}.host
+xe host-restore name-label=$(hostname) file-name=${FNAME}.host
 
 /root/sms_sms.ru ${PHONE} "Host ${FNAME} backup complete."

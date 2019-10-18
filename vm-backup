@@ -12,7 +12,7 @@ log_message() {
         then
             SEC_START=$2
             SEC_END=$(date +%s)
-            SEC=$($SEC_END - $SEC_START)
+            let SEC="$SEC_END - $SEC_START"
             PERIOD="$(($SEC/86400)) days $(date -ud@$SEC +%H:%M:%S)"
             MSG+=" takes $PERIOD"
         fi

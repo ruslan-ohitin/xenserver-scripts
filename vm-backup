@@ -1,10 +1,23 @@
 #!/bin/bash
 
 # Writing log message with vm name and timestamp
+# log_message "MESSAGE" [seconds at precess start]
 log_message() {
     if [ -n "$1" ]
     then
-        echo "$(date +%F\ %H:%M:%S) VM $VM: $1"
+        MSG="$(date +%F\ %H:%M:%S) VM $VM: $1"
+
+        # Calculate period from seconds since epoch given as $2 and current seconds.
+        if [ -n "$2" ]
+        then
+            SEC_START=$2
+            SEC_END=$(date +%s)
+            SEC=$($SEC_END - $SEC_START)
+            PERIOD="$(($SEC/86400)) days $(date -ud@$SEC +%H:%M:%S)"
+            MSG+=" takes $PERIOD"
+        fi
+
+        echo $MSG 
     fi
 }
 
@@ -63,8 +76,9 @@ do
                 fi
 
                 log_message "start export"
+                START_SEC_EXP=$(date +%s)
                 RES=$(xe vm-export vm=$VM compress=$COMPRESS_METHOD preserve-power-state=true filename=$FILENAME | tr '\n' ' ')
-                log_message "end export: $RES"
+                log_message "end export: $RES" $START_SEC_EXP
 
                 if [ $VM_STATE == "running" ]
                 then

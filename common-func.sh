@@ -6,6 +6,21 @@ timestamp() {
     date +%s
 }
 
+# timestamp_diff take number of seconds and subtract it from current seconds from epoch
+timestamp_diff() {
+    if [ -n "$1" ]
+    then
+        local SEC_DIFF
+        local SEC_START
+        local SEC_END
+
+        SEC_START=$1
+        SEC_END=$(timestamp)
+        SEC_DIFF=$((SEC_END - SEC_START))
+        echo $SEC_DIFF
+    fi 
+}
+
 # Get number of seconds and return human readable string with days, hours, minutes and seconds.
 # sec_to_period seconds
 sec_to_period() {
@@ -32,17 +47,13 @@ log_message() {
     then
         local MSG
         local SEC
-        local SEC_START
-        local SEC_END
 
         MSG="$(date +%F\ %H:%M:%S) VM $VM: $1"
 
         # Calculate period from seconds since epoch given as $2 and current seconds.
         if [ -n "$2" ]
         then
-            SEC_START=$2
-            SEC_END=$(timestamp)
-            let SEC="$SEC_END - $SEC_START"
+            SEC=$(timestamp_diff $2)
             MSG+=" takes $(sec_to_period $SEC)"
         fi
 

@@ -5,6 +5,7 @@ SHELL=/bin/bash
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 
 # CHANGE THIS!
+MAILFROM=robot@firm.com
 MAILTO=admin@firm.com
 
 @weekly root /root/weekly-vm-backup

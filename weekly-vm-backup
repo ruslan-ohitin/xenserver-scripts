@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Backup VMs weekly
+echo "Subject: $0 host: $(hostname) date: $(date +%Y-%m-%d)"
 
 # Get directory where this script is                                                                               
 # https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
@@ -13,6 +14,8 @@ if [ ! -z "$VMS_TO_BACKUP" ]
 then
     if mount LABEL="$(hostname)" /root/usb-hdd
     then
+        echo "Partition mounted"
+
         if [ ! -d /root/usb-hdd/$(hostname) ]
         then
             mkdir /root/usb-hdd/$(hostname)
@@ -21,13 +24,16 @@ then
         rm -f *
         
         /root/host-backup --no-sms
+        echo "host-backup ends"
+        
         /root/vm-backup --no-sms $VMS_TO_BACKUP
         cd /root
 
         umount /root/usb-hdd
     else
-        echo "Unabel to mount partition with label $(hostname)"
+        echo "Unable to mount partition with label $(hostname)"
     fi    
 else
-    echo "Set variable VMS_TO_BACKUP to list of VMs"    
+    echo "Set variable VMS_TO_BACKUP in $DIR/config"    
 fi    
+

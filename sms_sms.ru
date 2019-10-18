@@ -2,7 +2,12 @@
 
 # Send sms by sms.ru
 
-source /root/config
+# Get directory where this script is                                                                               
+# https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# Import config
+source "$DIR/config"
 
 API_ID="${SMSRU_API_ID}"
 #FROM="${PHONE_FROM}"

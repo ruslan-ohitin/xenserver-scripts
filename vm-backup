@@ -10,8 +10,12 @@ log_message() {
 
 # Main program
 
+# Get directory where this script is 
+# https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 # Import config
-source /root/config
+source "$DIR/config"
 
 if [ "$1" == "--no-sms" ]
 then

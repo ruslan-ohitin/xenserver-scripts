@@ -47,9 +47,9 @@ fi
 
 for HV in $HYPERVISORS
 do
-    if mount LABEL="hdd-$HV" /root/src
+    if mount LABEL="$HV" /root/src
     then
-        echo "Mount partition with label hdd-$HV."
+        echo "Mount partition with label $HV."
         if [ -d /root/src/$HV ]
         then
             if [ -d /root/dst/$HV ]
@@ -73,7 +73,7 @@ do
 
         umount /root/src
     else
-        echo "Partition with label hdd-$HV not found."
+        echo "Partition with label $HV not found."
     fi
 
 done

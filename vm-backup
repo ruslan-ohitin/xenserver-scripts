@@ -6,6 +6,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Import config
 source "$DIR/config"
+
+# Import common functions
 source "$DIR/common-func.sh"
 
 if [ "$1" == "--no-sms" ]
@@ -75,6 +77,7 @@ do
                 else
                     log_message "$MSG"
                 fi
+
             fi
         fi
 

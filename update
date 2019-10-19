@@ -1,10 +1,10 @@
 #!/bin/bash
 URL=https://github.com/ruslan-ohitin/xenserver-scripts/archive/master.zip
 
-wget -O new_version.zip $URL 
+wget --no-verbose -O new_version.zip $URL 
 
-unzip -j -o new_version.zip  
+unzip -q -j -o new_version.zip  
 
 chmod +x host-backup sms_sms.ru update vm-backup xsupdate copy-backups weekly-vm-backup
 
-rm new_version.zip
+rm -f new_version.zip

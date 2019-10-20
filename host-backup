@@ -18,7 +18,7 @@ xe pool-dump-database file-name=${FNAME}.pool
 
 xe host-backup name-label=$(hostname) file-name=${FNAME}.host
 
-tar czpvf ${FNAME}.conf.tar.gz \
+tar czpf ${FNAME}.conf.tar.gz \
     /root/vm-backup \
     /root/host-backup \
     /root/sms_sms.ru \

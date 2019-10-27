@@ -57,7 +57,7 @@ do
 
                 log_message "start export"
                 START_SEC_EXP=$(date +%s)
-                RES=$(xe vm-export vm=$VM compress=$COMPRESS_METHOD preserve-power-state=true filename=$FILENAME | tr '\n' ' ')
+                RES=$( { xe vm-export vm=$VM compress=$COMPRESS_METHOD preserve-power-state=true filename=$FILENAME | tr '\n' ' '; } 2>&1 )
                 log_message "end export: $RES" $START_SEC_EXP
 
                 if [ $VM_STATE == "running" ]

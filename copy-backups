@@ -7,6 +7,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # Import config
 source "$DIR/config"
 
+source "$DIR/common-func.sh"
+
 # Get pub keys from array $RECIPIENTS
 if [ ! -z "$RECIPIENTS" ]
 then
@@ -57,6 +59,8 @@ do
         echo "Mount partition with label $HV."
         if [ -d /root/src/$HV ]
         then
+            SEC_START=$(timestamp)
+            
             if [ -d /root/dst/$HV ]
             then
                 # If directory exists, then delete all files inside it.
@@ -72,11 +76,16 @@ do
                 gpg --compress-algo none $SRES -v -o "/root/dst/$HV/$(basename $FL).gpg" -e "$FL" 
 
             done
+
         else
             echo "Source directory /root/src/$HV not found!"
         fi
 
         umount /root/src
+        SEC=$(timestamp_diff $SEC_START)
+        MSG="Copy of $HV takes $(sec_to_period $SEC)"
+        $DIR/sms_sms.ru $PHONE "$MSG" 
+
     else
         echo "Partition with label $HV not found."
     fi

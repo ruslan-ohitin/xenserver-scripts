@@ -14,11 +14,9 @@ fi
 
 FNAME=$(hostname)_$(date +%Y%m%d)
 
-xe pool-dump-database file-name=${FNAME}.pool
+xe pool-dump-database file-name="${FNAME}.pool"
 
-xe host-backup name-label=$(hostname) file-name=${FNAME}.host
-
-tar czpf ${FNAME}.conf.tar.gz \
+tar czpf "${FNAME}.conf.tar.gz" \
     /root/vm-backup \
     /root/host-backup \
     /root/sms_sms.ru \
@@ -33,15 +31,18 @@ tar czpf ${FNAME}.conf.tar.gz \
     /etc/rc.d/rc.local \
 	/etc/cron.*/*
 
-xe host-restore name-label=$(hostname) file-name=${FNAME}.host
+if xe host-backup name-label="$(hostname)" file-name="${FNAME}.host"
+then
+    xe host-restore name-label="$(hostname)" file-name="${FNAME}.host"
+fi
 
 MSG="Host ${FNAME} backup complete."
 
 if [ -z "$NOSMS" ]
 then
     # There was no --no-sms option, let's send sms
-    /root/sms_sms.ru ${PHONE} "$MSG"
+    /root/sms_sms.ru "${PHONE}" "$MSG"
 else
-    echo $MSG
+    echo "$MSG"
 fi
 

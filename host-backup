@@ -33,7 +33,11 @@ tar czpf "${FNAME}.conf.tar.gz" \
 
 if xe host-backup name-label="$(hostname)" file-name="${FNAME}.host"
 then
+    # Restore backup file
     xe host-restore name-label="$(hostname)" file-name="${FNAME}.host"
+else
+    # Remove corrupted backup file
+    rm -f "${FNAME}.host"
 fi
 
 MSG="Host ${FNAME} backup complete."

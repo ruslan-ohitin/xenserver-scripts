@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Get directory where this script is                                                                               
+# https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# Import config
+source "$DIR/config"
+
+# Get pub keys from array $RECIPIENTS and put to $RES list acceptable by gpg
+if [ ! -z "$RECIPIENTS" ]
+then
+    SRES=""
+    for ix in ${!RECIPIENTS[*]}
+    do
+        pubkey="${RECIPIENTS[$ix]}"
+        if gpg --list-keys "$pubkey" > /dev/null
+        then
+            SRES+=" -r $pubkey"
+        fi
+    done
+    if [ -z "$SRES" ]
+    then
+       echo "No valid pubkey names found in \$RECIPIENTS array in /root/config"
+       exit
+    fi
+else
+    echo "Specify array of \$RECIPIENTS - gpg pub keys in /root/config"
+    exit
+fi
+
+# Get list of files
+FILES=$(nc -l $NETCAT_PORT)
+
+for fname in $FILES
+do
+  (nc -l $NETCAT_PORT | gpg $RES -e -o ${fname}.gpg) && (echo "Job done" | mail -s "Done $fname" ${ADMIN_EMAIL})
+done
+
+echo "Group job done" | mail -s "Group done" ${ADMIN_EMAIL}
+

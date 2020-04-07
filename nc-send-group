@@ -1,0 +1,14 @@
+#!/bin/bash
+
+FILES=$*
+
+sleep 3s
+echo $FILES | nc 192.168.10.251 8080
+
+for f in $FILES
+do
+  sleep 3s
+  nc 192.168.10.251 8080 < $f
+  echo "Done $f"
+done
+

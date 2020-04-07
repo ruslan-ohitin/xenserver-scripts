@@ -9,6 +9,9 @@ SMSRU_API_ID=00000000-0000-0000-0000-000000000000
 # Sender's phone
 PHONE_FROM=70000000000
 
+# System administartor email
+ADMIN_EMAIL="admin@firm.org""
+
 # Config Archives of backups
 # See README.md
 
@@ -24,3 +27,8 @@ HYPERVISORS=""
 # Array of gpg pub keys ids or emails to cypher backup
 # Key names (with spaces) breakes script.
 RECIPIENTS=("user1@firm.com" "user2@firm.org")
+
+# IP address and port used in netcat pipe in scripts nc-send-group and nc-receive-group
+NETCAT_ADDR="127.0.0.1"
+NETCAT_PORT="8080"
+

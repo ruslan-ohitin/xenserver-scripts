@@ -1,14 +1,21 @@
 #!/bin/bash
 
+# Get directory where this script is                                                                               
+# https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# Import config
+source "$DIR/config"
+
 FILES=$*
 
 sleep 3s
-echo $FILES | nc 192.168.10.251 8080
+echo $FILES | nc $NETCAT_ADDR $NETCAT_PORT
 
 for f in $FILES
 do
   sleep 3s
-  nc 192.168.10.251 8080 < $f
+  nc $NETCAT_ADDR $NETCAT_PORT < $f
   echo "Done $f"
 done
 

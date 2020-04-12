@@ -13,6 +13,12 @@ then
     exit
 fi
 
+if [ -z "$ADMIN_EMAIL" ]
+then
+    echo "Set ADMIN_EMAIL variable in $DIR/config"
+    exit
+fi
+
 # Get pub keys from array $RECIPIENTS and put to $RES list acceptable by gpg
 if [ ! -z "$RECIPIENTS" ]
 then

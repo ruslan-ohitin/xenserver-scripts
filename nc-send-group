@@ -7,6 +7,18 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # Import config
 source "$DIR/config"
 
+if [ -z "$NETCAT_ADDR" ]
+then
+    echo "Set NETCAT_ADDR variable in $DIR/config"
+    exit
+fi
+
+if [ -z "$NETCAT_PORT" ]
+then
+    echo "Set NETCAT_PORT variable in $DIR/config"
+    exit
+fi
+
 FILES=$*
 
 sleep 3s

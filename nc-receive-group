@@ -7,6 +7,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # Import config
 source "$DIR/config"
 
+if [ -z "$NETCAT_PORT" ]
+then
+    echo "Set NETCAT_PORT variable in $DIR/config"
+    exit
+fi
+
 # Get pub keys from array $RECIPIENTS and put to $RES list acceptable by gpg
 if [ ! -z "$RECIPIENTS" ]
 then
@@ -34,7 +40,7 @@ FILES=$(nc -l $NETCAT_PORT)
 
 for fname in $FILES
 do
-  (nc -l $NETCAT_PORT | gpg $RES -e -o ${fname}.gpg) && (echo "Job done" | mail -s "Done $fname" ${ADMIN_EMAIL})
+  (nc -l $NETCAT_PORT | gpg $SRES -e -o ${fname}.gpg) && (echo "Job done" | mail -s "Done $fname" ${ADMIN_EMAIL})
 done
 
 echo "Group job done" | mail -s "Group done" ${ADMIN_EMAIL}

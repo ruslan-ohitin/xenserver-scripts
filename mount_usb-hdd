@@ -1,0 +1,13 @@
+#!/bin/bash
+
+MOUNTDEV=LABEL=$(hostname)
+MOUNTDIR=/root/usb-hdd
+
+if [ $(mount | grep -c $MOUNTDIR) != 1 ]
+then
+        /bin/mount $MOUNTDEV $MOUNTDIR || exit 1
+        echo "$MOUNTDIR is now mounted"
+else
+        echo "Mountpiont $MOUNTDIR is already used"
+fi
+

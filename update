@@ -1,7 +1,11 @@
 #!/bin/bash
 URL=https://github.com/ruslan-ohitin/xenserver-scripts/archive/master.zip
 
-cd /root/
+# Get directory where this script is                                                                               
+# https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+cd $DIR
 
 wget --no-verbose -O new_version.zip $URL 
 

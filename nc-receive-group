@@ -49,5 +49,6 @@ do
   (nc -l $NETCAT_PORT | gpg $SRES -e -o ${fname}.gpg) && (echo "Job done" | mail -s "Done $fname" ${ADMIN_EMAIL})
 done
 
-echo "Group job done" | mail -s "Group done" ${ADMIN_EMAIL}
+DIR=basename $(pwd)
+echo "Group job done at $DIR" | mail -s "Group done" ${ADMIN_EMAIL}
 

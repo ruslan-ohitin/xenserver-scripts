@@ -1,12 +1,12 @@
 #!/bin/bash
 
-MOUNTDEV=LABEL=$(hostname)
+MOUNTDEV=LABEL="$(hostname)"
 MOUNTDIR=/root/usb-hdd
 
 if [ $(mount | grep -c $MOUNTDIR) != 1 ]
 then
         /bin/mount $MOUNTDEV $MOUNTDIR || exit 1
-        DEV=$(blkid -L $(hostname))
+        DEV=$(blkid -t LABEL="$(hostname)")
         echo "$DEV is mounted in $MOUNTDIR"
 else
         echo "Mountpiont $MOUNTDIR is already used"

@@ -43,10 +43,12 @@ fi
 
 # Get list of files
 FILES=$(nc -l $NETCAT_PORT)
+sleep 2s
 
 for fname in $FILES
 do
   (nc -l $NETCAT_PORT | gpg $SRES -e -o ${fname}.gpg) && (echo "Job done" | mail -s "Done $fname" ${ADMIN_EMAIL})
+  sleep 2s
 done
 
 DIR=$(basename $(pwd))

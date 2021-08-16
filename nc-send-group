@@ -21,12 +21,12 @@ fi
 
 FILES=$*
 
-sleep 3s
+sleep 5s
 echo $FILES | nc $NETCAT_ADDR $NETCAT_PORT
 
 for f in $FILES
 do
-  sleep 3s
+  sleep 5s
   nc $NETCAT_ADDR $NETCAT_PORT < $f
   echo "Done $f"
 done

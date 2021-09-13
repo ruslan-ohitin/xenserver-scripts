@@ -26,8 +26,8 @@ echo $FILES | nc $NETCAT_ADDR $NETCAT_PORT
 
 for f in $FILES
 do
-  sleep 5s
-  nc $NETCAT_ADDR $NETCAT_PORT < $f
+  sleep 2s
+  nc -w 10 $NETCAT_ADDR $NETCAT_PORT < $f
   echo "Done $f"
 done
 

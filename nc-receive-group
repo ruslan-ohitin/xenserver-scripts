@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# You need to open TCP port $NETCAT_PORT on your firewall.
+#
+# Add lines to open port 8080 to /etc/sysconfig/iptables
+#    # netcat for backups
+#    -A RH-Firewall-1-INPUT -m conntrack --ctstate NEW -m tcp -p tcp --dport 8080 -j ACCEPT
+#
+# then restart iptables:
+#    systemctl restart iptables
+
 # Get directory where this script is                                                                               
 # https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"

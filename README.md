@@ -5,7 +5,7 @@ Bash scripts for XenServer
 * _xsupdate_ - install patch from zip or xsupdate file
 * _sms_sms.ru_ - send text sms via http://sms.ru
 
-You need to install netmap-netcat package in order to nc-* scripts to work.
+You need to install nmap-ncat package (in xcp-ng) in order to nc-* scripts to work.
 
 Download to xen host:
 

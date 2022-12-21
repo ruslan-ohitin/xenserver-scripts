@@ -17,11 +17,10 @@ FNAME=$(hostname)_$(date +%Y%m%d)
 xe pool-dump-database file-name="${FNAME}.pool"
 
 tar czpf "${FNAME}.conf.tar.gz" \
-    /root/vm-backup \
-    /root/host-backup \
-    /root/sms_sms.ru \
 	/root/update \
 	/root/config \
+    /root/.tmux.conf \
+    /etc/passwd \
 	/etc/sysconfig/modules/* \
 	/etc/sysconfig/iptables \
     /etc/mdadm.conf \
@@ -29,7 +28,8 @@ tar czpf "${FNAME}.conf.tar.gz" \
     /etc/ssmtp/* \
     /etc/zabbix/* \
     /etc/rc.d/rc.local \
-	/etc/cron.*/*
+	/etc/cron.*/* \
+    /usr/local/bin/nut-send-email.sh
 
 if xe host-backup name-label="$(hostname)" file-name="${FNAME}.host"
 then

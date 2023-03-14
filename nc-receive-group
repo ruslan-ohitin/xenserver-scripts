@@ -63,5 +63,5 @@ do
 done
 
 DIR=$(basename $(pwd))
-echo "Group job done at $DIR" | mail -s "Group done" ${ADMIN_EMAIL}
+echo "Group job done at $DIR" | mail -s "$DIR - group done" ${ADMIN_EMAIL}
 

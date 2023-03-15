@@ -59,7 +59,7 @@ FILES=$(nc -l $NETCAT_PORT)
 for fname in $FILES
 do
   sleep 2s
-  (nc -l $NETCAT_PORT | gpg $SRES -e -o ${fname}.gpg) && (echo "Job done" | mail -s "Done $fname" ${ADMIN_EMAIL})
+  (nc -l $NETCAT_PORT | gpg $SRES -e -o ${fname}.gpg) && (echo "Job done" | mail -s "Done $fname ($(stat -c '%s' ${fname}.gpg | numfmt --to=iec))" ${ADMIN_EMAIL})
 done
 
 DIR=$(basename $(pwd))

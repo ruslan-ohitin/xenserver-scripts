@@ -6,11 +6,13 @@ Bash scripts for xcp-ng hypervisor
 
 You need to install nmap-ncat package in xcp-ng in order to nc-* scripts to work:
 
-\# yum install nmap-ncat
+```shell
+# yum install nmap-ncat
+```
 
 Download to xcp-ng host:
 
 ```shell
-\# cd /root
-\# wget -O - https://raw.githubusercontent.com/ruslan-ohitin/xenserver-scripts/master/update | bash
+# cd /root
+# wget -O - https://raw.githubusercontent.com/ruslan-ohitin/xenserver-scripts/master/update | bash
 ```

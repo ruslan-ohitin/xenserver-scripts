@@ -9,10 +9,10 @@
 # then restart iptables:
 #    systemctl restart iptables
 
-# If your system do not have ncat, install it
+# If your system does not have ncat, install it
 #    yum install nmap-ncat
 
-# Get directory where this script is                                                                               
+# Get directory where this script is located 
 # https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -31,7 +31,7 @@ then
     exit
 fi
 
-# Get pub keys from array $RECIPIENTS and put to $RES list acceptable by gpg
+# Get pub keys from array $RECIPIENTS and put them to $RES list acceptable by gpg
 if [ ! -z "$RECIPIENTS" ]
 then
     SRES=""

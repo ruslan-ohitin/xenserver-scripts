@@ -12,8 +12,10 @@
 # If your system does not have ncat, install it
 # On xcp-ng:
 #    yum install nmap-ncat
-# On Ubuntu:
+# On Ubuntu 20.04:
 #    sudo apt install ncat
+# On Ubuntu 18.04:
+#    sudo apt install netcat
 
 # Get directory where this script is located 
 # https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself

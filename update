@@ -16,6 +16,6 @@ else
     echo "Error while unzipping new_version.zip"
 fi
 
-chmod +x host-backup sms_sms.ru update vm-backup xsupdate copy-backups weekly-vm-backup
+chmod +x host-backup sms_sms.ru update vm-backup nc-send-group nc-receive-group copy-backups weekly-vm-backup
 
 rm -f new_version.zip

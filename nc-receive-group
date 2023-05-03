@@ -37,7 +37,7 @@ then
 fi
 
 # Get pub keys from array $RECIPIENTS and put them to $RES list acceptable by gpg
-if [ ! -z "$RECIPIENTS" ]
+if [ -n "$RECIPIENTS" ]
 then
     SRES=""
     for ix in ${!RECIPIENTS[*]}
@@ -59,14 +59,44 @@ else
 fi
 
 # Get list of files
-FILES=$(ncat -l $NETCAT_PORT)
+FILES=$(ncat -l "$NETCAT_PORT")
+
+# Store starting second for this task
+task_start=$(date +%s)
 
 for fname in $FILES
 do
   sleep 2s
-  (ncat -l $NETCAT_PORT | gpg $SRES -e -o ${fname}.gpg) && (echo "Job done" | mail -s "Done $fname ($(stat -c '%s' ${fname}.gpg | numfmt --to=iec))" ${ADMIN_EMAIL})
+  # Store starting second for this file transfer
+  sec_start=$(date +%s)
+
+  ncat -l "$NETCAT_PORT" | gpg $SRES -e -o "${fname}.gpg"
+  result=$?
+
+  sec_end=$(date +%s)
+  duration=$((sec_end - sec_start))
+  duration_period=$(date -u -d @$duration +%T)
+
+  if [ $result -eq 0 ]
+  then
+      file_size=$(stat -c '%s' ${fname}.gpg | numfmt --to=iec)
+      msg="Job done ${fname} (${file_size}) ${duration_period}"
+
+      echo $msg
+      echo $msg | mail -s "Jobe done $fname" ${ADMIN_EMAIL}
+  else
+      echo "Job failed ${fname}"
+  fi
 done
 
+task_end=$(date +%s)
+duration=$((task_end - task_start))
+duration_period=$(date -u -d @$duration +%T)
+
 DIR=$(basename $(pwd))
-echo "Group job done at $DIR" | mail -s "$DIR - group done" ${ADMIN_EMAIL}
+
+msg="Backup task finished at ${DIR}. ${duration_period}" 
+
+echo $msg
+echo $msg | mail -s "Backup task finised at $DIR" ${ADMIN_EMAIL}
 

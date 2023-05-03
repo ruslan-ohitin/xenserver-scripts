@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # If your system does not have ncat, install it
+# On xcp-ng:
 #    yum install nmap-ncat
+# On Ubuntu:
+#    sudo apt install ncat
 
 # Get directory where this script is located
 # https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
@@ -25,12 +28,12 @@ fi
 FILES=$*
 
 sleep 5s
-echo $FILES | nc $NETCAT_ADDR $NETCAT_PORT
+echo $FILES | ncat $NETCAT_ADDR $NETCAT_PORT
 
 for f in $FILES
 do
   sleep 5s
-  nc $NETCAT_ADDR $NETCAT_PORT < $f
+  ncat $NETCAT_ADDR $NETCAT_PORT < $f
   echo "Done $f"
 done
 

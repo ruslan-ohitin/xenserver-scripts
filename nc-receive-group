@@ -10,7 +10,10 @@
 #    systemctl restart iptables
 
 # If your system does not have ncat, install it
+# On xcp-ng:
 #    yum install nmap-ncat
+# On Ubuntu:
+#    sudo apt install ncat
 
 # Get directory where this script is located 
 # https://stackoverflow.com/questions/59895/get-the-source-directory-of-a-bash-script-from-within-the-script-itself
@@ -54,12 +57,12 @@ else
 fi
 
 # Get list of files
-FILES=$(nc -l $NETCAT_PORT)
+FILES=$(ncat -l $NETCAT_PORT)
 
 for fname in $FILES
 do
   sleep 2s
-  (nc -l $NETCAT_PORT | gpg $SRES -e -o ${fname}.gpg) && (echo "Job done" | mail -s "Done $fname ($(stat -c '%s' ${fname}.gpg | numfmt --to=iec))" ${ADMIN_EMAIL})
+  (ncat -l $NETCAT_PORT | gpg $SRES -e -o ${fname}.gpg) && (echo "Job done" | mail -s "Done $fname ($(stat -c '%s' ${fname}.gpg | numfmt --to=iec))" ${ADMIN_EMAIL})
 done
 
 DIR=$(basename $(pwd))
